@@ -20,11 +20,11 @@ const HEAD_PROVIDERS_UUID: [&str; 5] = [
     "https://crafthead.net/helm/{UUID}/256.png",
     "https://crafatar.com/avatars/{UUID}?size=256&overlay",
 ];
-const HEAD_PROVIDERS_NAME: [&str; 4] = [
+const HEAD_PROVIDERS_NAME: [&str; 3] = [
     "https://mc-heads.net/avatar/{NAME}/256.png",
     "https://minotar.net/helm/{NAME}/256.png",
     "https://cravatar.eu/helmavatar/{NAME}/256.png",
-    "https://crafthead.net/helm/{NAME}/256.png",
+    //"https://crafthead.net/helm/{NAME}/256.png",
 ];
 
 fn hash_string(string: &str) -> u64 {
