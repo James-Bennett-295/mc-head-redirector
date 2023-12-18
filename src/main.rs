@@ -13,17 +13,21 @@ struct HeadOptions {
 const HEAD_PROVIDERS_TEXTURE: [&str; 1] = [
     "https://mc-heads.net/avatar/{TEXTURE}/256.png"
 ];
-const HEAD_PROVIDERS_UUID: [&str; 5] = [
+const HEAD_PROVIDERS_UUID: [&str; 8] = [
     "https://mc-heads.net/avatar/{UUID}/256.png",
     "https://minotar.net/helm/{UUID}/256.png",
     "https://cravatar.eu/helmavatar/{UUID}/256.png",
     "https://crafthead.net/helm/{UUID}/256.png",
     "https://crafatar.com/avatars/{UUID}?size=256&overlay",
+    "https://mineskin.eu/helm/{UUID}/256.png",
+    "https://api.mineatar.io/face/{UUID}?scale=32&overlay&format=png",
+    "https://skin.hypernite.com/avatar/{UUID}/256.png"
 ];
-const HEAD_PROVIDERS_NAME: [&str; 3] = [
+const HEAD_PROVIDERS_NAME: [&str; 4] = [
     "https://mc-heads.net/avatar/{NAME}/256.png",
     "https://minotar.net/helm/{NAME}/256.png",
     "https://cravatar.eu/helmavatar/{NAME}/256.png",
+    "https://mineskin.eu/helm/{NAME}/256.png",
     //"https://crafthead.net/helm/{NAME}/256.png",
 ];
 
