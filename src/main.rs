@@ -13,11 +13,12 @@ struct HeadOptions {
 const HEAD_PROVIDERS_TEXTURE: [&str; 1] = [
     "https://mc-heads.net/avatar/{TEXTURE}/256.png"
 ];
-const HEAD_PROVIDERS_UUID: [&str; 4] = [
+const HEAD_PROVIDERS_UUID: [&str; 5] = [
     "https://mc-heads.net/avatar/{UUID}/256.png",
     "https://minotar.net/helm/{UUID}/256.png",
     "https://cravatar.eu/helmavatar/{UUID}/256.png",
     "https://crafthead.net/helm/{UUID}/256.png",
+    "https://crafatar.com/avatars/{UUID}?size=256&overlay",
 ];
 const HEAD_PROVIDERS_NAME: [&str; 4] = [
     "https://mc-heads.net/avatar/{NAME}/256.png",
