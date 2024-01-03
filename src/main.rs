@@ -40,7 +40,7 @@ fn hash_string(string: &str) -> u64 {
 async fn head(optns: web::Query<HeadOptions>) -> impl Responder {
     if let Some(uuid) = &optns.uuid {
         if !uuid.is_empty() {
-            let url_index = (hash_string(&uuid) as usize) % HEAD_PROVIDERS_UUID.len();
+            let url_index = (hash_string(&uuid.to_ascii_lowercase()) as usize) % HEAD_PROVIDERS_UUID.len();
             let url = HEAD_PROVIDERS_UUID[url_index].replace("{UUID}", uuid);
             return HttpResponse::TemporaryRedirect()
                 .insert_header(("Location", url))
@@ -49,7 +49,7 @@ async fn head(optns: web::Query<HeadOptions>) -> impl Responder {
     }
     if let Some(name) = &optns.name {
         if !name.is_empty() {
-            let url_index = (hash_string(&name) as usize) % HEAD_PROVIDERS_NAME.len();
+            let url_index = (hash_string(&name.to_ascii_lowercase()) as usize) % HEAD_PROVIDERS_NAME.len();
             let url = HEAD_PROVIDERS_NAME[url_index].replace("{NAME}", name);
             return HttpResponse::TemporaryRedirect()
                 .insert_header(("Location", url))
@@ -58,7 +58,7 @@ async fn head(optns: web::Query<HeadOptions>) -> impl Responder {
     }
     if let Some(texture) = &optns.texture {
         if !texture.is_empty() {
-            let url_index = (hash_string(&texture) as usize) % HEAD_PROVIDERS_TEXTURE.len();
+            let url_index = (hash_string(&texture.to_ascii_lowercase()) as usize) % HEAD_PROVIDERS_TEXTURE.len();
             let url = HEAD_PROVIDERS_TEXTURE[url_index].replace("{TEXTURE}", texture);
             return HttpResponse::TemporaryRedirect()
                 .insert_header(("Location", url))
