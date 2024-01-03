@@ -1,7 +1,5 @@
 use actix_web::{get, http::header::ContentType, web, App, HttpResponse, HttpServer, Responder};
 use serde::Deserialize;
-use std::collections::hash_map::DefaultHasher;
-use std::hash::{Hash, Hasher};
 
 #[derive(Deserialize)]
 struct HeadOptions {
@@ -30,17 +28,15 @@ const HEAD_PROVIDERS_NAME: [&str; 4] = [
     //"https://crafthead.net/helm/{NAME}/256.png",
 ];
 
-fn hash_string(string: &str) -> u64 {
-    let mut hasher = DefaultHasher::new();
-    string.hash(&mut hasher);
-    hasher.finish()
+fn sum_string_bytes(string: &str) -> u32 {
+    string.as_bytes().iter().fold(0u32, |acc, &byte| acc + u32::from(byte))
 }
 
 #[get("/head.png")]
 async fn head(optns: web::Query<HeadOptions>) -> impl Responder {
     if let Some(uuid) = &optns.uuid {
         if !uuid.is_empty() {
-            let url_index = (hash_string(&uuid.to_ascii_lowercase()) as usize) % HEAD_PROVIDERS_UUID.len();
+            let url_index = (sum_string_bytes(&uuid.to_ascii_lowercase()) as usize) % HEAD_PROVIDERS_UUID.len();
             let url = HEAD_PROVIDERS_UUID[url_index].replace("{UUID}", uuid);
             return HttpResponse::TemporaryRedirect()
                 .insert_header(("Location", url))
@@ -49,7 +45,7 @@ async fn head(optns: web::Query<HeadOptions>) -> impl Responder {
     }
     if let Some(name) = &optns.name {
         if !name.is_empty() {
-            let url_index = (hash_string(&name.to_ascii_lowercase()) as usize) % HEAD_PROVIDERS_NAME.len();
+            let url_index = (sum_string_bytes(&name.to_ascii_lowercase()) as usize) % HEAD_PROVIDERS_NAME.len();
             let url = HEAD_PROVIDERS_NAME[url_index].replace("{NAME}", name);
             return HttpResponse::TemporaryRedirect()
                 .insert_header(("Location", url))
@@ -58,7 +54,7 @@ async fn head(optns: web::Query<HeadOptions>) -> impl Responder {
     }
     if let Some(texture) = &optns.texture {
         if !texture.is_empty() {
-            let url_index = (hash_string(&texture.to_ascii_lowercase()) as usize) % HEAD_PROVIDERS_TEXTURE.len();
+            let url_index = (sum_string_bytes(&texture.to_ascii_lowercase()) as usize) % HEAD_PROVIDERS_TEXTURE.len();
             let url = HEAD_PROVIDERS_TEXTURE[url_index].replace("{TEXTURE}", texture);
             return HttpResponse::TemporaryRedirect()
                 .insert_header(("Location", url))
